@@ -1,0 +1,23 @@
+.container {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.title {
+  font-size: 6rem;
+  font-weight: bold;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.message {
+  font-size: 1.5rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.link {
+  display: inline-block;
+  color: var(--primary-color);
+  font-weight: 500;
+}

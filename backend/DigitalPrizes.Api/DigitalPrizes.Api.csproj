@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>DigitalPrizes.Api</RootNamespace>
+
+    <!-- .NET Analyzers -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+    <!-- Documentation -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Suppressed warnings:
+         CS1591: Missing XML comment (covered by SA1600)
+         SA1309: Field names must not begin with underscore (we use _fieldName convention)
+         SA1101: Prefix local calls with this (not needed with modern C#)
+         SA1633: File must have header (not using file headers)
+         SA1516: Elements should be separated by blank line (too strict for POCOs)
+         SA1600: Elements should be documented (too strict for domain models)
+         SA1413: Trailing comma (style preference)
+         SA1611: Parameter docs missing (inherit from interface)
+         SA1615: Return value docs missing (inherit from interface)
+         SA1000: Space after new keyword (style preference)
+         SA1116: Parameters should begin on line after declaration
+         SA1204: Static members before non-static
+         SA1500: Braces should not share line
+         SA1401: Field should be private (protected fields in base classes are OK)
+         SA1623: Property documentation text (style preference)
+         CA1848: Use LoggerMessage delegates (not needed for this project size)
+         CA1031: Do not catch general exception types (sometimes needed)
+         CA2007: Consider ConfigureAwait (not needed for ASP.NET Core)
+         CA1869: Cache and reuse JsonSerializerOptions (handled by DI)
+         CA2227: Collection properties should be read only (needed for EF Core)
+         CA1056: URI properties should not be strings (simpler for DTOs)
+         CA1724: Type names should not match namespaces (Otp is fine)
+         CA1002: Change List<T> to Collection<T> (List is acceptable for DTOs)
+         CA1062: Validate parameter is non-null (handled by ASP.NET model binding)
+         CA1000: Static members on generic types (acceptable for factory methods)
+         CA1051: Do not declare visible instance fields (protected fields OK in base)
+         CA1716: Namespace conflicts with reserved keyword (Public namespace is fine)
+    -->
+    <NoWarn>$(NoWarn);CS1591;SA1309;SA1101;SA1633;SA1516;SA1600;SA1413;SA1611;SA1615;SA1000;SA1116;SA1204;SA1500;SA1401;SA1623;CA1848;CA1031;CA2007;CA1869;CA2227;CA1056;CA1724;CA1002;CA1062;CA1000;CA1051;CA1716</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+
+</Project>

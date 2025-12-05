@@ -1,0 +1,1 @@
+export { usePrizes } from './usePrizes';

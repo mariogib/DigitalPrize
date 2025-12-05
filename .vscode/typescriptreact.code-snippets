@@ -1,0 +1,105 @@
+{
+  "React functional component": {
+    "prefix": "rfc",
+    "body": [
+      "import React from 'react';",
+      "",
+      "interface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props {",
+      "  $1",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}: React.FC<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props> = (props) => {",
+      "  return (",
+      "    <div>",
+      "      $0",
+      "    </div>",
+      "  );",
+      "};",
+      ""
+    ],
+    "description": "React functional component with TypeScript"
+  },
+  "React hook": {
+    "prefix": "rhook",
+    "body": [
+      "import { useState, useEffect } from 'react';",
+      "",
+      "interface Use${TM_FILENAME_BASE/use(.*)/${1:/pascalcase}/}Result {",
+      "  $1",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE}: Use${TM_FILENAME_BASE/use(.*)/${1:/pascalcase}/}Result = () => {",
+      "  const [isLoading, setIsLoading] = useState(false);",
+      "  const [error, setError] = useState<Error | null>(null);",
+      "",
+      "  useEffect(() => {",
+      "    $0",
+      "  }, []);",
+      "",
+      "  return {",
+      "    isLoading,",
+      "    error,",
+      "  };",
+      "};",
+      ""
+    ],
+    "description": "Custom React hook with TypeScript"
+  },
+  "API service": {
+    "prefix": "apiservice",
+    "body": [
+      "import { apiClient } from './api/apiClient';",
+      "import type { ${1:Model}, Create${1:Model}Dto, Update${1:Model}Dto } from '../types';",
+      "",
+      "export const ${TM_FILENAME_BASE} = {",
+      "  getAll(): Promise<${1:Model}[]> {",
+      "    return apiClient.get<${1:Model}[]>('/api/${2:endpoint}');",
+      "  },",
+      "",
+      "  getById(id: string): Promise<${1:Model}> {",
+      "    return apiClient.get<${1:Model}>(`/api/${2:endpoint}/\\${id}`);",
+      "  },",
+      "",
+      "  create(dto: Create${1:Model}Dto): Promise<${1:Model}> {",
+      "    return apiClient.post<${1:Model}>('/api/${2:endpoint}', dto);",
+      "  },",
+      "",
+      "  update(id: string, dto: Update${1:Model}Dto): Promise<${1:Model}> {",
+      "    return apiClient.put<${1:Model}>(`/api/${2:endpoint}/\\${id}`, dto);",
+      "  },",
+      "",
+      "  delete(id: string): Promise<void> {",
+      "    return apiClient.delete<void>(`/api/${2:endpoint}/\\${id}`);",
+      "  },",
+      "};",
+      ""
+    ],
+    "description": "API service module"
+  },
+  "TypeScript interface": {
+    "prefix": "tsi",
+    "body": [
+      "export interface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+      "  $0",
+      "}",
+      ""
+    ],
+    "description": "TypeScript interface"
+  },
+  "TypeScript DTO": {
+    "prefix": "tsdto",
+    "body": [
+      "export interface ${1:Name}Dto {",
+      "  $0",
+      "}",
+      "",
+      "export interface Create${1:Name}Dto {",
+      "  ",
+      "}",
+      "",
+      "export interface Update${1:Name}Dto extends Partial<Create${1:Name}Dto> {}",
+      ""
+    ],
+    "description": "TypeScript DTO interfaces"
+  }
+}

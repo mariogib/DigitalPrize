@@ -1,0 +1,49 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Dev\\WorldPlay\\DigitalPrize\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{596B58D4-BED5-4C82-B504-5F2B8F7ADB36}|backend\\DigitalPrizes.Api\\DigitalPrizes.Api.csproj|c:\\dev\\worldplay\\digitalprize\\backend\\digitalprizes.api\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{596B58D4-BED5-4C82-B504-5F2B8F7ADB36}|backend\\DigitalPrizes.Api\\DigitalPrizes.Api.csproj|solutionrelative:backend\\digitalprizes.api\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "web.config",
+              "DocumentMoniker": "C:\\Dev\\WorldPlay\\DigitalPrize\\backend\\DigitalPrizes.Api\\web.config",
+              "RelativeDocumentMoniker": "backend\\DigitalPrizes.Api\\web.config",
+              "ToolTip": "C:\\Dev\\WorldPlay\\DigitalPrize\\backend\\DigitalPrizes.Api\\web.config",
+              "RelativeToolTip": "backend\\DigitalPrizes.Api\\web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-12-04T12:24:31.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
