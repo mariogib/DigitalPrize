@@ -16,23 +16,23 @@
 .headerLeft h1 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   margin: 0 0 0.25rem;
 }
 
 .subtitle {
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   font-size: 0.875rem;
   margin: 0;
 }
 
 /* Filters */
 .filters {
-  background: white;
+  background: var(--color-dark-card, white);
   border-radius: 0.75rem;
   padding: 1.25rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-color, rgba(0, 0, 0, 0.1));
 }
 
 .searchForm {
@@ -44,7 +44,7 @@
 .searchInput {
   flex: 1;
   padding: 0.625rem 1rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-dark-border, #e2e8f0);
   border-radius: 0.5rem;
   font-size: 0.9375rem;
   max-width: 400px;
@@ -52,14 +52,14 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: var(--color-primary, #6366f1);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 99, 102, 241), 0.1);
 }
 
 .searchButton {
   padding: 0.625rem 1.25rem;
-  background: #4f46e5;
-  color: white;
+  background: var(--color-primary, #4f46e5);
+  color: var(--text-primary, white);
   border: none;
   border-radius: 0.5rem;
   font-size: 0.875rem;
@@ -69,7 +69,7 @@
 }
 
 .searchButton:hover {
-  background: #4338ca;
+  background: var(--color-secondary, #4338ca);
 }
 
 .filterRow {
@@ -81,10 +81,10 @@
 
 .filterSelect {
   padding: 0.5rem 2rem 0.5rem 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-dark-border, #e2e8f0);
   border-radius: 0.5rem;
   font-size: 0.875rem;
-  background: white;
+  background: var(--color-dark-card, white);
   cursor: pointer;
   min-width: 160px;
   appearance: menulist;
@@ -92,7 +92,7 @@
 
 .filterSelect:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: var(--color-primary, #6366f1);
 }
 
 .dateRange {
@@ -103,26 +103,26 @@
 
 .dateInput {
   padding: 0.5rem 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-dark-border, #e2e8f0);
   border-radius: 0.5rem;
   font-size: 0.875rem;
 }
 
 .dateInput:focus {
   outline: none;
-  border-color: #6366f1;
+  border-color: var(--color-primary, #6366f1);
 }
 
 .dateSeparator {
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   font-size: 0.875rem;
 }
 
 .clearButton {
   padding: 0.5rem 1rem;
-  background: #f1f5f9;
-  color: #475569;
-  border: 1px solid #e2e8f0;
+  background: var(--color-dark-lighter, #f1f5f9);
+  color: var(--text-muted, #475569);
+  border: 1px solid var(--color-dark-border, #e2e8f0);
   border-radius: 0.5rem;
   font-size: 0.875rem;
   cursor: pointer;
@@ -130,14 +130,14 @@
 }
 
 .clearButton:hover {
-  background: #e2e8f0;
+  background: var(--color-dark-border, #e2e8f0);
 }
 
 /* States */
 .loading {
   text-align: center;
   padding: 4rem 2rem;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   font-size: 1rem;
 }
 
@@ -146,8 +146,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: #fee2e2;
-  color: #dc2626;
+  background: rgba(var(--color-error-rgb, 220, 38, 38), 0.15);
+  color: var(--color-error, #dc2626);
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
@@ -155,7 +155,7 @@
 .error button {
   background: none;
   border: none;
-  color: #dc2626;
+  color: var(--color-error, #dc2626);
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0;
@@ -165,27 +165,27 @@
 .emptyState {
   text-align: center;
   padding: 4rem 2rem;
-  background: white;
+  background: var(--color-dark-card, white);
   border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-color, rgba(0, 0, 0, 0.1));
 }
 
 .emptyState h3 {
   font-size: 1.25rem;
-  color: #374151;
+  color: var(--text-primary, #374151);
   margin: 0 0 0.5rem;
 }
 
 .emptyState p {
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   margin: 0;
 }
 
 /* Table */
 .tableContainer {
-  background: white;
+  background: var(--color-dark-card, white);
   border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-color, rgba(0, 0, 0, 0.1));
   overflow: hidden;
 }
 
@@ -198,31 +198,31 @@
 .table td {
   padding: 0.875rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-dark-border, #e2e8f0);
 }
 
 .table th {
-  background: #f8fafc;
+  background: var(--color-dark-lighter, #f8fafc);
   font-size: 0.75rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .table td {
   font-size: 0.875rem;
-  color: #374151;
+  color: var(--text-primary, #374151);
 }
 
 .table tbody tr:hover {
-  background: #f8fafc;
+  background: var(--color-dark-lighter, #f8fafc);
 }
 
 .idCell {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.8125rem;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
 }
 
 .cellNumber {
@@ -231,7 +231,7 @@
 }
 
 .competitionLink {
-  color: #4f46e5;
+  color: var(--color-primary, #4f46e5);
   text-decoration: none;
   font-weight: 500;
 }
@@ -243,7 +243,7 @@
 .dateCell {
   white-space: nowrap;
   font-size: 0.8125rem;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
 }
 
 /* Status Badge */
@@ -257,33 +257,33 @@
 }
 
 .statusVerified {
-  background: #dcfce7;
-  color: #166534;
+  background: rgba(var(--color-success-rgb, 16, 185, 129), 0.15);
+  color: var(--color-success, #166534);
 }
 
 .statusPending {
-  background: #fef3c7;
-  color: #92400e;
+  background: rgba(var(--color-warning-rgb, 245, 158, 11), 0.15);
+  color: var(--color-warning, #92400e);
 }
 
 /* Answers */
 .viewAnswersButton {
-  background: #f1f5f9;
+  background: var(--color-dark-lighter, #f1f5f9);
   border: none;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.8125rem;
-  color: #4f46e5;
+  color: var(--color-primary, #4f46e5);
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .viewAnswersButton:hover {
-  background: #e2e8f0;
+  background: var(--color-dark-border, #e2e8f0);
 }
 
 .noAnswers {
-  color: #94a3b8;
+  color: var(--text-muted, #94a3b8);
 }
 
 /* Actions */
@@ -294,8 +294,8 @@
 
 .verifyButton {
   padding: 0.25rem 0.625rem;
-  background: #dcfce7;
-  color: #166534;
+  background: rgba(var(--color-success-rgb, 16, 185, 129), 0.15);
+  color: var(--color-success, #166534);
   border: none;
   border-radius: 0.25rem;
   font-size: 0.75rem;
@@ -305,7 +305,7 @@
 }
 
 .verifyButton:hover:not(:disabled) {
-  background: #bbf7d0;
+  background: rgba(var(--color-success-rgb, 16, 185, 129), 0.25);
 }
 
 .verifyButton:disabled {
@@ -315,8 +315,8 @@
 
 .flagButton {
   padding: 0.25rem 0.625rem;
-  background: #fef3c7;
-  color: #92400e;
+  background: rgba(var(--color-warning-rgb, 245, 158, 11), 0.15);
+  color: var(--color-warning, #92400e);
   border: none;
   border-radius: 0.25rem;
   font-size: 0.75rem;
@@ -326,7 +326,7 @@
 }
 
 .flagButton:hover:not(:disabled) {
-  background: #fde68a;
+  background: rgba(var(--color-warning-rgb, 245, 158, 11), 0.25);
 }
 
 .flagButton:disabled {
@@ -336,8 +336,8 @@
 
 .deleteButton {
   padding: 0.25rem 0.625rem;
-  background: #fee2e2;
-  color: #dc2626;
+  background: rgba(var(--color-error-rgb, 220, 38, 38), 0.15);
+  color: var(--color-error, #dc2626);
   border: none;
   border-radius: 0.25rem;
   font-size: 0.75rem;
@@ -347,7 +347,7 @@
 }
 
 .deleteButton:hover:not(:disabled) {
-  background: #fecaca;
+  background: rgba(var(--color-error-rgb, 220, 38, 38), 0.25);
 }
 
 .deleteButton:disabled {
@@ -366,9 +366,9 @@
 
 .pageButton {
   padding: 0.5rem 1rem;
-  background: white;
-  color: #374151;
-  border: 1px solid #e2e8f0;
+  background: var(--color-dark-card, white);
+  color: var(--text-primary, #374151);
+  border: 1px solid var(--color-dark-border, #e2e8f0);
   border-radius: 0.5rem;
   font-size: 0.875rem;
   cursor: pointer;
@@ -376,8 +376,8 @@
 }
 
 .pageButton:hover:not(:disabled) {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+  background: var(--color-dark-lighter, #f8fafc);
+  border-color: var(--color-dark-border, #cbd5e1);
 }
 
 .pageButton:disabled {
@@ -387,7 +387,7 @@
 
 .pageInfo {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
 }
 
 /* Responsive */

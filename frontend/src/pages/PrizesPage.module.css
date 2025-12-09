@@ -18,9 +18,9 @@
 .empty {
   text-align: center;
   padding: 2rem;
-  color: var(--muted);
+  color: var(--text-muted, #6b7280);
 }
 
 .error {
-  color: var(--error);
+  color: var(--color-error, #dc2626);
 }

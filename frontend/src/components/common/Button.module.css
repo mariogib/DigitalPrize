@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  border-radius: 0.375rem;
+  border-radius: var(--wp-radius-button, 0.375rem);
   border: none;
   cursor: pointer;
   transition: all 0.2s;
@@ -16,22 +16,22 @@
 
 /* Variants */
 .primary {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--wp-button-bg, var(--primary-color));
+  color: var(--wp-button-text, white);
 }
 
 .primary:hover:not(:disabled) {
-  background-color: var(--primary-hover);
+  background-color: var(--wp-button-hover, var(--primary-hover));
 }
 
 .secondary {
-  background-color: transparent;
-  color: var(--foreground);
-  border: 1px solid var(--border);
+  background-color: var(--color-dark-card, transparent);
+  color: var(--text-primary, var(--foreground));
+  border: 1px solid var(--color-dark-border, var(--border));
 }
 
 .secondary:hover:not(:disabled) {
-  background-color: var(--border);
+  background-color: var(--color-dark-lighter, var(--border));
 }
 
 .danger {

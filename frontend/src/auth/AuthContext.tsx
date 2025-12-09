@@ -86,6 +86,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Sign in handler
   const signIn = useCallback(async () => {
     try {
+      // Log the redirect URI for debugging
+      console.log('Initiating sign in with config:', {
+        redirect_uri: oidcConfig.redirect_uri,
+        origin: window.location.origin,
+        href: window.location.href
+      });
       await userManager.signinRedirect();
     } catch (error) {
       console.error('Sign in error:', error);

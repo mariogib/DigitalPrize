@@ -11,6 +11,7 @@ import './AuthCallback.css';
 export const AuthCallback: React.FC = () => {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
+  const [debugInfo, setDebugInfo] = useState<string>('');
   const processedRef = useRef(false);
 
   useEffect(() => {
@@ -23,13 +24,26 @@ export const AuthCallback: React.FC = () => {
     const handleCallback = async () => {
       try {
         const userManager = getUserManager();
-        await userManager.signinRedirectCallback();
+        
+        // Collect debug info
+        const currentUrl = window.location.href;
+        const sessionKeys = Object.keys(sessionStorage);
+        const localKeys = Object.keys(localStorage);
+        const debug = `URL: ${currentUrl}\nSession keys: ${sessionKeys.join(', ') || 'none'}\nLocal keys: ${localKeys.join(', ') || 'none'}`;
+        setDebugInfo(debug);
+        
+        await userManager.signinRedirectCallback(currentUrl);
 
         // Redirect to the admin page after successful login
         navigate('/admin', { replace: true });
       } catch (err) {
         console.error('Auth callback error:', err);
-        setError(err instanceof Error ? err.message : 'Authentication failed');
+        const errorMsg = err instanceof Error ? err.message : 'Authentication failed';
+        const currentUrl = window.location.href;
+        const sessionKeys = Object.keys(sessionStorage);
+        const sessionData = sessionKeys.map(k => `${k}: ${sessionStorage.getItem(k)?.substring(0, 100)}...`).join('\n');
+        setDebugInfo(`URL: ${currentUrl}\n\nSession Storage Keys: ${sessionKeys.join(', ') || 'none'}\n\nSession Data:\n${sessionData}`);
+        setError(errorMsg);
       }
     };
 
@@ -42,6 +56,19 @@ export const AuthCallback: React.FC = () => {
         <div className="auth-callback-error">
           <h2>Authentication Error</h2>
           <p>{error}</p>
+          <pre style={{ 
+            textAlign: 'left', 
+            fontSize: '12px', 
+            background: '#1a1a2e', 
+            padding: '15px', 
+            borderRadius: '8px',
+            maxWidth: '600px',
+            overflow: 'auto',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-all'
+          }}>
+            {debugInfo}
+          </pre>
           <button onClick={() => navigate('/', { replace: true })}>Return to Home</button>
         </div>
       </div>

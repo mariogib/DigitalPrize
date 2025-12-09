@@ -20,8 +20,8 @@
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid #e5e7eb;
-  border-top-color: #4f46e5;
+  border: 3px solid var(--color-dark-border, #e5e7eb);
+  border-top-color: var(--color-primary, #4f46e5);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -34,8 +34,8 @@
 
 .error button {
   padding: 8px 16px;
-  background: #4f46e5;
-  color: #fff;
+  background: var(--color-primary, #4f46e5);
+  color: var(--text-primary, #fff);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -54,18 +54,18 @@
 }
 
 .statCard {
-  background: #fff;
+  background: var(--color-dark-card, #fff);
   border-radius: 12px;
   padding: 20px;
   display: flex;
   gap: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-color, rgba(0, 0, 0, 0.1));
   transition: all 0.15s ease;
 }
 
 .statLink:hover .statCard {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(0, 0, 0, 0.15));
 }
 
 .statIcon {
@@ -75,7 +75,7 @@
   justify-content: center;
   width: 56px;
   height: 56px;
-  background: #f3f4f6;
+  background: var(--color-dark-lighter, #f3f4f6);
   border-radius: 12px;
 }
 
@@ -88,32 +88,32 @@
 .statValue {
   font-size: 24px;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary, #1f2937);
 }
 
 .statTitle {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-muted, #6b7280);
 }
 
 .trendPositive {
-  color: #10b981;
+  color: var(--color-success, #10b981);
   font-size: 12px;
   font-weight: 500;
 }
 
 .trendNegative {
-  color: #ef4444;
+  color: var(--color-error, #ef4444);
   font-size: 12px;
   font-weight: 500;
 }
 
 /* Sections */
 .section {
-  background: #fff;
+  background: var(--color-dark-card, #fff);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-color, rgba(0, 0, 0, 0.1));
 }
 
 .sectionHeader {
@@ -127,7 +127,7 @@
   margin: 0 0 20px 0;
   font-size: 18px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-primary, #1f2937);
 }
 
 .sectionHeader .sectionTitle {
@@ -135,7 +135,7 @@
 }
 
 .viewAll {
-  color: #4f46e5;
+  color: var(--color-primary, #4f46e5);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -157,19 +157,19 @@
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
+  background: var(--color-dark-lighter, #f8fafc);
+  border: 1px solid var(--color-dark-border, #e5e7eb);
   border-radius: 10px;
   text-decoration: none;
-  color: #1f2937;
+  color: var(--text-primary, #1f2937);
   font-weight: 500;
   transition: all 0.15s ease;
 }
 
 .actionButton:hover {
-  background: #4f46e5;
-  border-color: #4f46e5;
-  color: #fff;
+  background: var(--color-primary, #4f46e5);
+  border-color: var(--color-primary, #4f46e5);
+  color: var(--text-primary, #fff);
 }
 
 .actionIcon {
@@ -191,21 +191,21 @@
 .table td {
   padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-dark-border, #e5e7eb);
 }
 
 .table th {
   font-weight: 600;
-  color: #6b7280;
-  background: #f9fafb;
+  color: var(--text-muted, #6b7280);
+  background: var(--color-dark-lighter, #f9fafb);
 }
 
 .table tbody tr:hover {
-  background: #f9fafb;
+  background: var(--color-dark-lighter, #f9fafb);
 }
 
 .table a {
-  color: #4f46e5;
+  color: var(--color-primary, #4f46e5);
   text-decoration: none;
   font-weight: 500;
 }
@@ -224,26 +224,26 @@
 }
 
 .status.active {
-  background: #dcfce7;
-  color: #166534;
+  background: rgba(var(--color-success-rgb, 16, 185, 129), 0.15);
+  color: var(--color-success, #166534);
 }
 
 .status.draft {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--color-dark-lighter, #f3f4f6);
+  color: var(--text-muted, #6b7280);
 }
 
 .status.paused {
-  background: #fef3c7;
-  color: #92400e;
+  background: rgba(var(--color-warning-rgb, 245, 158, 11), 0.15);
+  color: var(--color-warning, #92400e);
 }
 
 .status.completed {
-  background: #dbeafe;
-  color: #1e40af;
+  background: rgba(var(--color-primary-rgb, 99, 102, 241), 0.15);
+  color: var(--color-primary, #1e40af);
 }
 
 .status.cancelled {
-  background: #fee2e2;
-  color: #991b1b;
+  background: rgba(var(--color-error-rgb, 239, 68, 68), 0.15);
+  color: var(--color-error, #991b1b);
 }

@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   min-height: 200px;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
 }
 
 .errorState {
@@ -22,12 +22,12 @@
 }
 
 .errorState h2 {
-  color: #dc2626;
+  color: var(--color-error, #dc2626);
   margin-bottom: 1rem;
 }
 
 .errorState p {
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   margin-bottom: 1.5rem;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .backLink {
-  color: #6366f1;
+  color: var(--color-primary, #6366f1);
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
@@ -59,15 +59,15 @@
 .headerLeft h1 {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   margin: 0;
 }
 
 .titleInput {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1e293b;
-  border: 1px solid #d1d5db;
+  color: var(--text-primary, #1e293b);
+  border: 1px solid var(--color-dark-border, #d1d5db);
   border-radius: 0.375rem;
   padding: 0.5rem;
   width: 100%;
@@ -89,13 +89,13 @@
 }
 
 .statusActive {
-  background: #dcfce7;
-  color: #16a34a;
+  background: rgba(var(--color-success-rgb, 16, 185, 129), 0.15);
+  color: var(--color-success, #16a34a);
 }
 
 .statusInactive {
-  background: #fee2e2;
-  color: #dc2626;
+  background: rgba(var(--color-error-rgb, 220, 38, 38), 0.15);
+  color: var(--color-error, #dc2626);
 }
 
 .typeBadge {
@@ -104,8 +104,8 @@
   border-radius: 9999px;
   font-weight: 500;
   font-size: 0.75rem;
-  background: #e0e7ff;
-  color: #4338ca;
+  background: rgba(var(--color-primary-rgb, 99, 102, 241), 0.15);
+  color: var(--color-primary, #4338ca);
 }
 
 .headerActions {
@@ -116,9 +116,9 @@
 .editButton,
 .cancelButton {
   padding: 0.5rem 1rem;
-  background: white;
-  color: #64748b;
-  border: 1px solid #d1d5db;
+  background: var(--color-dark-card, white);
+  color: var(--text-muted, #64748b);
+  border: 1px solid var(--color-dark-border, #d1d5db);
   border-radius: 0.375rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -130,14 +130,14 @@
 
 .editButton:hover,
 .cancelButton:hover {
-  background: #f8fafc;
-  border-color: #94a3b8;
+  background: var(--color-dark-lighter, #f8fafc);
+  border-color: var(--color-dark-border, #94a3b8);
 }
 
 .saveButton {
   padding: 0.5rem 1rem;
-  background: #6366f1;
-  color: white;
+  background: var(--color-primary, #6366f1);
+  color: var(--text-primary, white);
   border: none;
   border-radius: 0.375rem;
   font-size: 0.875rem;
@@ -147,19 +147,19 @@
 }
 
 .saveButton:hover {
-  background: #4f46e5;
+  background: var(--color-secondary, #4f46e5);
 }
 
 .saveButton:disabled {
-  background: #a5b4fc;
+  background: rgba(var(--color-primary-rgb, 99, 102, 241), 0.5);
   cursor: not-allowed;
 }
 
 .deleteButton {
   padding: 0.5rem 1rem;
-  background: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fecaca;
+  background: rgba(var(--color-error-rgb, 220, 38, 38), 0.1);
+  color: var(--color-error, #dc2626);
+  border: 1px solid rgba(var(--color-error-rgb, 220, 38, 38), 0.3);
   border-radius: 0.375rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -170,8 +170,8 @@
 }
 
 .deleteButton:hover {
-  background: #fee2e2;
-  border-color: #f87171;
+  background: rgba(var(--color-error-rgb, 220, 38, 38), 0.2);
+  border-color: var(--color-error, #f87171);
 }
 
 /* Error Banner */
@@ -180,14 +180,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: rgba(var(--color-error-rgb, 220, 38, 38), 0.1);
+  border: 1px solid rgba(var(--color-error-rgb, 220, 38, 38), 0.3);
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;
 }
 
 .errorBanner p {
-  color: #dc2626;
+  color: var(--color-error, #dc2626);
   margin: 0;
   font-size: 0.875rem;
 }
@@ -195,7 +195,7 @@
 .dismissButton {
   background: none;
   border: none;
-  color: #dc2626;
+  color: var(--color-error, #dc2626);
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0;
@@ -203,7 +203,7 @@
 }
 
 .dismissButton:hover {
-  color: #b91c1c;
+  color: var(--color-error, #b91c1c);
 }
 
 /* Stats Row */
@@ -215,9 +215,9 @@
 }
 
 .statCard {
-  background: white;
+  background: var(--color-dark-card, white);
   border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-color, rgba(0, 0, 0, 0.1));
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -226,26 +226,26 @@
 }
 
 .statCard.available {
-  border-left: 4px solid #22c55e;
+  border-left: 4px solid var(--color-success, #22c55e);
 }
 
 .statCard.awarded {
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid var(--color-warning, #f59e0b);
 }
 
 .statCard.redeemed {
-  border-left: 4px solid #6366f1;
+  border-left: 4px solid var(--color-primary, #6366f1);
 }
 
 .statValue {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
 }
 
 .statLabel {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--text-muted, #64748b);
 }
 
 /* Details Grid */
@@ -256,26 +256,26 @@
 }
 
 .detailCard {
-  background: white;
+  background: var(--color-dark-card, white);
   border-radius: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px var(--shadow-color, rgba(0, 0, 0, 0.1));
   padding: 1.5rem;
 }
 
 .detailCard h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   margin: 0 0 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-dark-border, #e2e8f0);
 }
 
 .detailRow {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 0;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-dark-border, #f1f5f9);
 }
 
 .detailRow:last-child {
@@ -283,18 +283,18 @@
 }
 
 .detailLabel {
-  color: #64748b;
+  color: var(--text-muted, #64748b);
   font-size: 0.875rem;
 }
 
 .detailValue {
-  color: #1e293b;
+  color: var(--text-primary, #1e293b);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
 .detailValue a {
-  color: #6366f1;
+  color: var(--color-primary, #6366f1);
   text-decoration: none;
 }
 
@@ -321,23 +321,23 @@
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #334155;
+  color: var(--text-primary, #334155);
   margin-bottom: 0.5rem;
 }
 
 .required {
-  color: #dc2626;
+  color: var(--color-error, #dc2626);
 }
 
 .input,
 .select {
   width: 100%;
   padding: 0.625rem 0.875rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-dark-border, #d1d5db);
   border-radius: 0.375rem;
   font-size: 0.875rem;
-  color: #1e293b;
-  background: white;
+  color: var(--text-primary, #1e293b);
+  background: var(--color-dark-card, white);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
@@ -347,18 +347,18 @@
 .input:focus,
 .select:focus {
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: var(--color-primary, #6366f1);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 99, 102, 241), 0.1);
 }
 
 .textarea {
   width: 100%;
   padding: 0.625rem 0.875rem;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-dark-border, #d1d5db);
   border-radius: 0.375rem;
   font-size: 0.875rem;
-  color: #1e293b;
-  background: white;
+  color: var(--text-primary, #1e293b);
+  background: var(--color-dark-card, white);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
@@ -370,8 +370,8 @@
 
 .textarea:focus {
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: var(--color-primary, #6366f1);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 99, 102, 241), 0.1);
 }
 
 .checkboxLabel {
@@ -379,7 +379,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
-  color: #334155;
+  color: var(--text-primary, #334155);
   cursor: pointer;
 }
 

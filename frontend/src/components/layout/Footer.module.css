@@ -1,8 +1,8 @@
 .footer {
-  background: var(--wp-gradient-dark);
-  color: #fff;
+  background: var(--wp-footer-bg, var(--wp-gradient-dark));
+  color: var(--wp-footer-text, #fff);
   padding: 3rem 0 1.5rem;
-  border-top: 1px solid rgba(0, 180, 216, 0.2);
+  border-top: 1px solid rgba(var(--color-primary-rgb, 0, 180, 216), 0.2);
 }
 
 .container {
@@ -45,7 +45,8 @@
 }
 
 .tagline {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--wp-footer-text, rgba(255, 255, 255, 0.7));
+  opacity: 0.7;
   font-size: 0.9rem;
   line-height: 1.6;
 }
@@ -71,14 +72,16 @@
 }
 
 .linkGroup a {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--wp-footer-text, rgba(255, 255, 255, 0.7));
+  opacity: 0.7;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .linkGroup a:hover {
   color: var(--wp-primary);
+  opacity: 1;
 }
 
 .copyright {
@@ -87,7 +90,8 @@
 }
 
 .copyright p {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--wp-footer-text, rgba(255, 255, 255, 0.5));
+  opacity: 0.5;
   font-size: 0.85rem;
   margin: 0;
 }

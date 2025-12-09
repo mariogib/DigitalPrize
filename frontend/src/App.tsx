@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './auth';
 import { ProtectedRoute } from './components/auth';
 import { Layout } from './components/layout/Layout';
+import { ThemeProvider } from './contexts';
 import { AdminLayout } from './layouts';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -23,28 +24,32 @@ import { AuthCallback, SilentCallback } from './pages/auth';
 import { Redeem, Register, Status } from './pages/public';
 
 export const App: React.FC = () => {
+  // Get the base path from Vite config (set during build)
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Auth Callback Routes */}
-          <Route path="/auth/callback" element={<AuthCallback />} />
-          <Route path="/auth/silent-callback" element={<SilentCallback />} />
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter basename={basename}>
+          <Routes>
+            {/* Auth Callback Routes */}
+            <Route path="/auth/callback" element={<AuthCallback />} />
+            <Route path="/auth/silent-callback" element={<SilentCallback />} />
 
-          {/* Public Routes */}
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="prizes" element={<PrizesPage />} />
-          </Route>
+            {/* Public Routes */}
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="prizes" element={<PrizesPage />} />
+            </Route>
 
-          {/* Public Registration (standalone page) */}
-          <Route path="/register/:competitionId" element={<Register />} />
+            {/* Public Registration (standalone page) */}
+            <Route path="/register/:competitionId" element={<Register />} />
 
-          {/* Public Redemption (standalone page) */}
-          <Route path="/redeem" element={<Redeem />} />
+            {/* Public Redemption (standalone page) */}
+            <Route path="/redeem" element={<Redeem />} />
 
-          {/* Public Status Check (standalone page) */}
-          <Route path="/status" element={<Status />} />
+            {/* Public Status Check (standalone page) */}
+            <Route path="/status" element={<Status />} />
 
           {/* Admin Routes - Protected */}
           <Route
@@ -80,5 +85,6 @@ export const App: React.FC = () => {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+  </ThemeProvider>
   );
 };

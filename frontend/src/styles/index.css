@@ -1,43 +1,65 @@
 :root {
-  /* WorldPlay Brand Colors */
-  --wp-primary: #00b4d8; /* Teal/Cyan - primary accent */
-  --wp-primary-light: #48cae4; /* Lighter teal */
-  --wp-primary-dark: #0096c7; /* Darker teal */
-  --wp-secondary: #ff6b35; /* Orange accent */
-  --wp-secondary-light: #ff8c5a; /* Lighter orange */
+  /* WorldPlay Brand Colors - defaults that can be overridden by tenant theme */
+  --wp-primary: var(--color-primary, #00b4d8); /* Teal/Cyan - primary accent */
+  --wp-primary-light: var(--color-primary-light, #48cae4); /* Lighter teal */
+  --wp-primary-dark: var(--color-primary-dark, #0096c7); /* Darker teal */
+  --wp-secondary: var(--color-secondary, #ff6b35); /* Orange accent */
+  --wp-secondary-light: var(--color-secondary-light, #ff8c5a); /* Lighter orange */
+  --wp-accent: var(--color-accent, #00b4d8); /* Accent color */
 
-  /* Dark Theme Colors */
-  --wp-dark: #0a1628; /* Darkest navy */
-  --wp-dark-lighter: #132038; /* Dark navy */
-  --wp-dark-card: #1a2a44; /* Card background */
-  --wp-dark-border: #2a3a54; /* Border color */
+  /* Dark Theme Colors - can be overridden by tenant theme */
+  --wp-dark: var(--color-dark, #0a1628); /* Darkest navy */
+  --wp-dark-lighter: var(--color-dark-lighter, #132038); /* Dark navy */
+  --wp-dark-card: var(--color-dark-card, #1a2a44); /* Card background */
+  --wp-dark-border: var(--color-dark-border, #2a3a54); /* Border color */
 
-  /* Text Colors */
-  --wp-text-primary: #ffffff;
-  --wp-text-secondary: rgba(255, 255, 255, 0.7);
-  --wp-text-muted: rgba(255, 255, 255, 0.5);
-  --wp-text-dark: #1f2937;
+  /* Text Colors - can be overridden by tenant theme */
+  --wp-text-primary: var(--text-primary, #ffffff);
+  --wp-text-secondary: var(--text-secondary, rgba(255, 255, 255, 0.7));
+  --wp-text-muted: var(--text-muted, rgba(255, 255, 255, 0.5));
+  --wp-text-dark: var(--color-text, #1f2937);
 
-  /* Status Colors */
-  --wp-success: #10b981;
-  --wp-warning: #f59e0b;
-  --wp-error: #ef4444;
-  --wp-info: #3b82f6;
+  /* Status Colors - can be overridden by tenant theme */
+  --wp-success: var(--color-success, #10b981);
+  --wp-warning: var(--color-warning, #f59e0b);
+  --wp-error: var(--color-error, #ef4444);
+  --wp-info: var(--color-info, #3b82f6);
+
+  /* Header/Footer - can be overridden by tenant theme */
+  --wp-header-bg: var(--header-background, var(--wp-gradient-dark));
+  --wp-header-text: var(--header-text-color, #ffffff);
+  --wp-footer-bg: var(--footer-background, var(--wp-gradient-dark));
+  --wp-footer-text: var(--footer-text-color, #ffffff);
+
+  /* Button Colors - can be overridden by tenant theme */
+  --wp-button-bg: var(--button-background, var(--wp-primary));
+  --wp-button-text: var(--button-text-color, #ffffff);
+  --wp-button-hover: var(--button-hover-background, var(--wp-primary-dark));
+
+  /* Link Color - can be overridden by tenant theme */
+  --wp-link: var(--color-link, var(--wp-primary));
+
+  /* Font Family - can be overridden by tenant theme */
+  --wp-font-family: var(--font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+
+  /* Border Radius - can be overridden by tenant theme */
+  --wp-radius-button: var(--button-radius, 6px);
+  --wp-radius-card: var(--card-radius, 12px);
 
   /* Legacy compatibility */
   --primary-color: var(--wp-primary);
   --primary-hover: var(--wp-primary-dark);
-  --background: #ffffff;
+  --background: var(--color-background, #ffffff);
   --foreground: var(--wp-text-dark);
   --muted: #6b7280;
   --border: #e5e7eb;
   --error: var(--wp-error);
   --success: var(--wp-success);
 
-  /* Gradients */
-  --wp-gradient-dark: linear-gradient(135deg, #0a1628 0%, #132038 50%, #1a2a44 100%);
-  --wp-gradient-primary: linear-gradient(135deg, var(--wp-primary) 0%, var(--wp-primary-dark) 100%);
-  --wp-gradient-accent: linear-gradient(135deg, var(--wp-primary) 0%, var(--wp-secondary) 100%);
+  /* Gradients - using CSS variable for primary color */
+  --wp-gradient-dark: linear-gradient(135deg, var(--color-dark, #0a1628) 0%, var(--color-dark-lighter, #132038) 50%, var(--color-dark-card, #1a2a44) 100%);
+  --wp-gradient-primary: linear-gradient(135deg, var(--color-primary, #00b4d8) 0%, var(--color-primary-dark, #0096c7) 100%);
+  --wp-gradient-accent: linear-gradient(135deg, var(--color-primary, #00b4d8) 0%, var(--color-secondary, #ff6b35) 100%);
 }
 
 * {
@@ -47,15 +69,7 @@
 }
 
 body {
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: var(--wp-font-family);
   color: var(--foreground);
   background-color: var(--background);
   line-height: 1.6;

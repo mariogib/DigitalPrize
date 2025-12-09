@@ -9,12 +9,32 @@ import { WebStorageStateStore } from 'oidc-client-ts';
 /**
  * OAuth2/OIDC Configuration for WorldPlay Auth Server
  */
+
+// Get the base URL - this must match exactly between login initiation and callback
+const getBaseUrl = (): string => {
+  if (typeof window !== 'undefined') {
+    // Get the pathname and extract the base if running under a virtual directory
+    const pathname = window.location.pathname;
+    const testappMatch = pathname.match(/^(\/testapp)/i);
+    if (testappMatch) {
+      return window.location.origin + testappMatch[1];
+    }
+    return window.location.origin;
+  }
+  return 'http://localhost:3000';
+};
+
+const baseUrl = getBaseUrl();
+
+// In development, use local proxy to avoid CORS issues
+const authServerUrl = import.meta.env.DEV ? '' : 'https://worldplayauth.ngrok.app';
+
 export const oidcConfig: UserManagerSettings = {
   authority: 'https://worldplayauth.ngrok.app/',
   client_id: 'DigitalPrizeApplication',
-  redirect_uri: 'http://localhost:3000/auth/callback',
-  post_logout_redirect_uri: 'http://localhost:3000/',
-  silent_redirect_uri: 'http://localhost:3000/auth/silent-callback',
+  redirect_uri: `${baseUrl}/auth/callback`,
+  post_logout_redirect_uri: `${baseUrl}/`,
+  silent_redirect_uri: `${baseUrl}/auth/silent-callback`,
 
   // Response type for authorization code flow with PKCE
   response_type: 'code',
@@ -22,8 +42,9 @@ export const oidcConfig: UserManagerSettings = {
   // Scopes to request (must match scopes registered for this client on the OpenIddict server)
   scope: 'openid profile email offline_access api.read api.write roles',
 
-  // Token storage
+  // Token storage - use localStorage for both user and state to persist across redirects
   userStore: new WebStorageStateStore({ store: window.localStorage }),
+  stateStore: new WebStorageStateStore({ store: window.localStorage }),
 
   // Don't load user info - the OpenIddict server doesn't expose a userinfo endpoint
   // Claims are included in the ID token instead
@@ -38,8 +59,17 @@ export const oidcConfig: UserManagerSettings = {
   // Include ID token claims in the profile
   filterProtocolClaims: false,
 
-  // Metadata discovery
-  metadataUrl: 'https://worldplayauth.ngrok.app/.well-known/openid-configuration',
+  // Override metadata to use proxy in development
+  metadataUrl: `${authServerUrl}/.well-known/openid-configuration`,
+  
+  // Explicit endpoint overrides for development proxy
+  metadata: import.meta.env.DEV ? {
+    issuer: 'https://worldplayauth.ngrok.app/',
+    authorization_endpoint: 'https://worldplayauth.ngrok.app/connect/authorize',
+    token_endpoint: '/connect/token',
+    end_session_endpoint: '/connect/logout',
+    jwks_uri: '/.well-known/jwks',
+  } : undefined,
 };
 
 /**

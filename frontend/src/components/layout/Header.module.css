@@ -1,6 +1,6 @@
 .header {
-  background: var(--wp-gradient-dark);
-  color: white;
+  background: var(--wp-header-bg, var(--wp-gradient-dark));
+  color: var(--wp-header-text, white);
   padding: 0;
   position: sticky;
   top: 0;
@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: white;
+  color: var(--wp-header-text, white);
   text-decoration: none;
 }
 
