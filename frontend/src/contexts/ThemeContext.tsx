@@ -1,11 +1,12 @@
 /**
  * Theme Context Provider
- * Provides tenant theme to the application
+ * Provides tenant theme to the application with loading overlay
  */
 
 import { useEffect, useState, type ReactNode } from 'react';
 import { initializeTheme, type TenantTheme } from '../services/themeService';
 import { ThemeContext, type ThemeContextValue } from './themeContextDef';
+import styles from './ThemeContext.module.css';
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -23,7 +24,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       } catch (error) {
         console.error('Failed to load theme:', error);
       } finally {
-        setIsLoading(false);
+        // Small delay to ensure CSS variables are applied
+        setTimeout(() => setIsLoading(false), 100);
       }
     };
 
@@ -38,6 +40,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>
+      {isLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingContent}>
+            <div className={styles.spinner} />
+            <p className={styles.loadingText}>Loading...</p>
+          </div>
+        </div>
+      )}
+      <div className={isLoading ? styles.hidden : styles.visible}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
   );
 };
