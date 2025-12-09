@@ -66,8 +66,8 @@
   border-radius: 0.5rem 0 0 0.5rem;
   font-size: 0.875rem;
   outline: none;
-  background: var(--color-dark-lighter, white);
-  color: var(--text-primary, inherit);
+  background: var(--color-background, #ffffff);
+  color: var(--text-primary, #1e293b);
   transition: border-color 0.2s;
 }
 

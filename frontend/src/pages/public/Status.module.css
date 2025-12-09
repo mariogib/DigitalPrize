@@ -101,7 +101,7 @@
   font-size: 1rem;
   transition: all 0.2s;
   box-sizing: border-box;
-  background: var(--wp-dark);
+  background: var(--color-background, #0a1628);
   color: var(--text-primary, #fff);
 }
 

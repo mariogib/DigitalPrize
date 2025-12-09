@@ -15,8 +15,8 @@
   font-size: 1rem;
   border: 1px solid var(--border);
   border-radius: 0.375rem;
-  background-color: white;
-  color: var(--foreground);
+  background-color: var(--color-background, #ffffff);
+  color: var(--text-primary, #1e293b);
   transition: border-color 0.2s;
 }
 

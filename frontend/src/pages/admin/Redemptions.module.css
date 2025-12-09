@@ -48,6 +48,8 @@
   border-radius: 0.5rem;
   font-size: 0.9375rem;
   max-width: 400px;
+  background: var(--color-background, #ffffff);
+  color: var(--text-primary, #1e293b);
 }
 
 .searchInput:focus {

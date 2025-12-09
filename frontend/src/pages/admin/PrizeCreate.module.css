@@ -124,7 +124,7 @@
   border-radius: 0.375rem;
   font-size: 0.875rem;
   color: var(--text-primary, #1e293b);
-  background: var(--color-dark-card, white);
+  background: var(--color-background, #ffffff);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
@@ -149,7 +149,7 @@
   border-radius: 0.375rem;
   font-size: 0.875rem;
   color: var(--text-primary, #1e293b);
-  background: var(--color-dark-card, white);
+  background: var(--color-background, #ffffff);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
@@ -175,7 +175,7 @@
   border-radius: 0.375rem;
   font-size: 0.875rem;
   color: var(--text-primary, #1e293b);
-  background: var(--color-dark-card, white);
+  background: var(--color-background, #ffffff);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
