@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth';
+import { useTheme } from '../contexts';
 import styles from './AdminLayout.module.css';
 
 interface NavItem {
@@ -27,6 +28,7 @@ const navItems: NavItem[] = [
 export const AdminLayout: React.FC = () => {
   const location = useLocation();
   const { claims, signOut, databaseInfo } = useAuth();
+  const { logoUrl, tenantName } = useTheme();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const isActive = (path: string): boolean => {
@@ -49,8 +51,12 @@ export const AdminLayout: React.FC = () => {
       >
         <div className={styles.sidebarHeader}>
           <Link to="/admin" className={styles.logo}>
-            <span className={styles.logoIcon}>🎯</span>
-            {!sidebarCollapsed && <span className={styles.logoText}>WORLDPLAY</span>}
+            {logoUrl ? (
+              <img src={logoUrl} alt={tenantName ?? 'Logo'} className={styles.logoImage} />
+            ) : (
+              <span className={styles.logoIcon}>🎯</span>
+            )}
+            {!sidebarCollapsed && <span className={styles.logoText}>{tenantName ?? 'WORLDPLAY'}</span>}
           </Link>
           <button
             className={styles.collapseButton}
