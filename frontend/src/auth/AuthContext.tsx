@@ -33,6 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [userManager] = useState(() => new UserManager(oidcConfig));
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   // Load user on mount
   useEffect(() => {
@@ -92,36 +93,82 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         origin: window.location.origin,
         href: window.location.href,
       });
-      await userManager.signinRedirect();
+      // Use prompt: 'login' to force the auth server to show the login page
+      // This prevents silent re-authentication after logout
+      await userManager.signinRedirect({ prompt: 'login' });
     } catch (error) {
       console.error('Sign in error:', error);
       throw error;
     }
   }, [userManager]);
 
-  // Sign out handler - uses direct URL to avoid CORS issues with OIDC discovery
+  // Sign out handler - clears local state and redirects to auth server logout
   const signOut = useCallback(async () => {
+    console.log('signOut called - starting logout process');
+    
+    // Set signing out flag to prevent ProtectedRoute from triggering sign-in
+    setIsSigningOut(true);
+    
     try {
+      // Get the id_token before clearing state (needed for logout hint)
       const currentUser = await userManager.getUser();
       const idToken = currentUser?.id_token;
+      console.log('Got id_token for logout:', !!idToken);
 
-      // Clear local auth state
+      // Clear React state
+      setUser(null);
+      console.log('React state cleared');
+
+      // Clear local auth state via userManager
       await userManager.removeUser();
+      console.log('userManager.removeUser completed');
 
-      // Build direct logout URL
-      const authority = 'https://worldplayauth.ngrok.app';
-      const postLogoutUri = encodeURIComponent(window.location.origin + '/DigitalPrize/');
-      let logoutUrl = `${authority}/connect/logout?post_logout_redirect_uri=${postLogoutUri}`;
+      // Explicitly clear the OIDC user key (authority from config)
+      const authority = oidcConfig.authority?.replace(/\/$/, '') ?? '';
+      const userKey = `oidc.user:${oidcConfig.authority}${oidcConfig.client_id}`;
+      localStorage.removeItem(userKey);
+      console.log('Removed userKey:', userKey);
 
-      if (idToken) {
-        logoutUrl += `&id_token_hint=${idToken}`;
+      // Clear any remaining OIDC state from storage
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.startsWith('oidc.') || key.includes('DigitalPrize'))) {
+          keysToRemove.push(key);
+        }
       }
+      console.log('localStorage keys to remove:', keysToRemove);
+      keysToRemove.forEach(key => localStorage.removeItem(key));
 
-      // Redirect to logout endpoint
+      // Clear session storage as well - including auth_redirect_url
+      const sessionKeysToRemove: string[] = [];
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i);
+        if (key && (key.startsWith('oidc.') || key.includes('DigitalPrize') || key === 'auth_redirect_url')) {
+          sessionKeysToRemove.push(key);
+        }
+      }
+      console.log('sessionStorage keys to remove:', sessionKeysToRemove);
+      sessionKeysToRemove.forEach(key => sessionStorage.removeItem(key));
+
+      // Build the auth server logout URL with id_token_hint first, then post_logout_redirect_uri
+      const postLogoutUri = encodeURIComponent(window.location.origin + '/DigitalPrize');
+      let logoutUrl = `${authority}/connect/logout?`;
+      
+      if (idToken) {
+        logoutUrl += `id_token_hint=${idToken}&`;
+      }
+      logoutUrl += `post_logout_redirect_uri=${postLogoutUri}`;
+
+      console.log('Redirecting to auth server logout:', logoutUrl);
+      // Redirect to auth server to clear server-side session
       window.location.href = logoutUrl;
     } catch (error) {
       console.error('Sign out error:', error);
-      throw error;
+      // Even on error, try to logout via auth server
+      const authority = oidcConfig.authority?.replace(/\/$/, '') ?? '';
+      const postLogoutUri = encodeURIComponent(window.location.origin + '/DigitalPrize');
+      window.location.href = `${authority}/connect/logout?post_logout_redirect_uri=${postLogoutUri}`;
     }
   }, [userManager]);
 
@@ -169,6 +216,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const contextValue = useMemo<AuthContextValue>(
     () => ({
       isLoading,
+      isSigningOut,
       isAuthenticated: !!user && !user.expired,
       user,
       claims,
@@ -183,6 +231,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }),
     [
       isLoading,
+      isSigningOut,
       user,
       claims,
       databaseInfo,

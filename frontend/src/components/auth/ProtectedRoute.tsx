@@ -18,15 +18,17 @@ interface ProtectedRouteProps {
  * Optionally checks for required roles
  */
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRoles }) => {
-  const { isLoading, isAuthenticated, hasAnyRole, signIn } = useAuth();
+  const { isLoading, isSigningOut, isAuthenticated, hasAnyRole, signIn } = useAuth();
   const location = useLocation();
 
-  // Show loading spinner while checking authentication
-  if (isLoading) {
+  // Show loading spinner while checking authentication or signing out
+  if (isLoading || isSigningOut) {
     return (
       <div className="protected-route-loading">
         <div className="protected-route-spinner" />
-        <p className="protected-route-text">Checking authentication...</p>
+        <p className="protected-route-text">
+          {isSigningOut ? 'Signing out...' : 'Checking authentication...'}
+        </p>
       </div>
     );
   }

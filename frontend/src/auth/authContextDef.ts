@@ -13,6 +13,8 @@ import type { DatabaseInfo, UserClaims } from './authConfig';
 export interface AuthContextValue {
   /** Whether authentication is still being initialized */
   isLoading: boolean;
+  /** Whether the user is currently signing out */
+  isSigningOut: boolean;
   /** Whether the user is authenticated */
   isAuthenticated: boolean;
   /** The authenticated user, if any */
