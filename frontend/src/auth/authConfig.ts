@@ -7,6 +7,46 @@ import type { UserManagerSettings } from 'oidc-client-ts';
 import { WebStorageStateStore } from 'oidc-client-ts';
 
 /**
+ * Custom storage wrapper that prefixes all keys with 'dp_' to isolate
+ * DigitalPrize's OIDC state from other apps on the same domain
+ */
+class PrefixedStorage implements Storage {
+  private prefix = 'dp_';
+  private storage: Storage;
+
+  constructor(storage: Storage) {
+    this.storage = storage;
+  }
+
+  get length(): number {
+    return Object.keys(this.storage).filter((key) => key.startsWith(this.prefix)).length;
+  }
+
+  key(index: number): string | null {
+    const keys = Object.keys(this.storage).filter((key) => key.startsWith(this.prefix));
+    return keys[index]?.substring(this.prefix.length) ?? null;
+  }
+
+  getItem(key: string): string | null {
+    return this.storage.getItem(this.prefix + key);
+  }
+
+  setItem(key: string, value: string): void {
+    this.storage.setItem(this.prefix + key, value);
+  }
+
+  removeItem(key: string): void {
+    this.storage.removeItem(this.prefix + key);
+  }
+
+  clear(): void {
+    Object.keys(this.storage)
+      .filter((key) => key.startsWith(this.prefix))
+      .forEach((key) => this.storage.removeItem(key));
+  }
+}
+
+/**
  * OAuth2/OIDC Configuration for WorldPlay Auth Server
  */
 
@@ -19,7 +59,12 @@ const getBaseUrl = (): string => {
     // Remove trailing slash if present for URL building
     const basePath = viteBase.endsWith('/') ? viteBase.slice(0, -1) : viteBase;
     const fullUrl = window.location.origin + basePath;
-    console.log('[authConfig] getBaseUrl:', { viteBase, basePath, origin: window.location.origin, fullUrl });
+    console.log('[authConfig] getBaseUrl:', {
+      viteBase,
+      basePath,
+      origin: window.location.origin,
+      fullUrl,
+    });
     return fullUrl;
   }
   return 'http://localhost:3000';
@@ -27,6 +72,9 @@ const getBaseUrl = (): string => {
 
 const baseUrl = getBaseUrl();
 console.log('[authConfig] Configured redirect_uri:', `${baseUrl}/auth/callback`);
+
+// Create prefixed storage instances to isolate from other apps on same domain
+const prefixedLocalStorage = new PrefixedStorage(window.localStorage);
 
 export const oidcConfig: UserManagerSettings = {
   authority: 'https://worldplayauth.ngrok.app/',
@@ -41,9 +89,9 @@ export const oidcConfig: UserManagerSettings = {
   // Scopes to request (must match scopes registered for this client on the OpenIddict server)
   scope: 'openid profile email offline_access api.read api.write roles',
 
-  // Token storage - use localStorage for both user and state to persist across redirects
-  userStore: new WebStorageStateStore({ store: window.localStorage }),
-  stateStore: new WebStorageStateStore({ store: window.localStorage }),
+  // Token storage - use prefixed localStorage to isolate from other apps
+  userStore: new WebStorageStateStore({ store: prefixedLocalStorage }),
+  stateStore: new WebStorageStateStore({ store: prefixedLocalStorage }),
 
   // Don't load user info - the OpenIddict server doesn't expose a userinfo endpoint
   // Claims are included in the ID token instead

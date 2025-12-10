@@ -18,8 +18,9 @@ export const AuthCallback: React.FC = () => {
     // Check for clear parameter - allows manual clearing via URL
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('clear') === 'true') {
+      // Clear both old oidc. keys and new dp_ prefixed keys
       Object.keys(localStorage).forEach((key) => {
-        if (key.startsWith('oidc.')) {
+        if (key.startsWith('oidc.') || key.startsWith('dp_')) {
           localStorage.removeItem(key);
         }
       });
@@ -58,8 +59,9 @@ export const AuthCallback: React.FC = () => {
         // If authority mismatch, clear stale state and retry
         if (errorMsg.toLowerCase().includes('authority mismatch')) {
           console.log('AuthCallback: Authority mismatch detected, clearing stale auth state...');
+          // Clear both old oidc. keys and new dp_ prefixed keys
           Object.keys(localStorage).forEach((key) => {
-            if (key.startsWith('oidc.')) {
+            if (key.startsWith('oidc.') || key.startsWith('dp_')) {
               console.log('AuthCallback: Removing localStorage key:', key);
               localStorage.removeItem(key);
             }
@@ -73,7 +75,7 @@ export const AuthCallback: React.FC = () => {
         const currentUrl = window.location.href;
         const localKeys = Object.keys(localStorage);
         const localData = localKeys
-          .filter((k) => k.startsWith('oidc.'))
+          .filter((k) => k.startsWith('oidc.') || k.startsWith('dp_'))
           .map((k) => `${k}: ${localStorage.getItem(k)?.substring(0, 100)}...`)
           .join('\n');
         setDebugInfo(`URL: ${currentUrl}\n\nLocalStorage OIDC Keys:\n${localData || 'none'}`);

@@ -90,12 +90,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Log the redirect URI for debugging
       console.log('Initiating sign in with config:', {
         redirect_uri: oidcConfig.redirect_uri,
+        authority: oidcConfig.authority,
         origin: window.location.origin,
         href: window.location.href,
       });
-      // Use prompt: 'login' to force the auth server to show the login page
-      // This prevents silent re-authentication after logout
-      //await userManager.signinRedirect({ prompt: 'login' });
+
+      // Clear any stale state before starting a new sign-in
+      // This prevents authority mismatch errors from old state
+      await userManager.clearStaleState();
+
+      // Also log any existing oidc keys in localStorage
+      const oidcKeys = Object.keys(localStorage).filter((k) => k.startsWith('oidc.'));
+      console.log('Existing OIDC localStorage keys before signin:', oidcKeys);
+
       await userManager.signinRedirect({});
     } catch (error) {
       console.error('Sign in error:', error);
@@ -125,16 +132,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log('userManager.removeUser completed');
 
       // Explicitly clear the OIDC user key (authority from config)
-      const authority = oidcConfig.authority?.replace(/\/$/, '') ?? '';
+      const authority = oidcConfig.authority.replace(/\/$/, '');
       const userKey = `oidc.user:${oidcConfig.authority}${oidcConfig.client_id}`;
       localStorage.removeItem(userKey);
       console.log('Removed userKey:', userKey);
 
-      // Clear any remaining OIDC state from storage
+      // Clear any remaining OIDC state from storage (both old oidc. and new dp_ prefixed keys)
       const keysToRemove: string[] = [];
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        if (key && (key.startsWith('oidc.') || key.includes('DigitalPrize'))) {
+        if (
+          key &&
+          (key.startsWith('oidc.') || key.startsWith('dp_') || key.includes('DigitalPrize'))
+        ) {
           keysToRemove.push(key);
         }
       }
@@ -147,7 +157,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const key = sessionStorage.key(i);
         if (
           key &&
-          (key.startsWith('oidc.') || key.includes('DigitalPrize') || key === 'auth_redirect_url')
+          (key.startsWith('oidc.') ||
+            key.startsWith('dp_') ||
+            key.includes('DigitalPrize') ||
+            key === 'auth_redirect_url')
         ) {
           sessionKeysToRemove.push(key);
         }
@@ -170,7 +183,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Sign out error:', error);
       // Even on error, try to logout via auth server
-      const authority = oidcConfig.authority?.replace(/\/$/, '') ?? '';
+      const authority = oidcConfig.authority.replace(/\/$/, '');
       const postLogoutUri = encodeURIComponent(window.location.origin + '/DigitalPrize');
       window.location.href = `${authority}/connect/logout?post_logout_redirect_uri=${postLogoutUri}`;
     }
