@@ -40,7 +40,17 @@
   --wp-link: var(--color-link, var(--wp-primary));
 
   /* Font Family - can be overridden by tenant theme */
-  --wp-font-family: var(--font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+  --wp-font-family: var(
+    --font-family,
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif
+  );
 
   /* Border Radius - can be overridden by tenant theme */
   --wp-radius-button: var(--button-radius, 6px);
@@ -57,9 +67,22 @@
   --success: var(--wp-success);
 
   /* Gradients - using CSS variable for primary color */
-  --wp-gradient-dark: linear-gradient(135deg, var(--color-dark, #0a1628) 0%, var(--color-dark-lighter, #132038) 50%, var(--color-dark-card, #1a2a44) 100%);
-  --wp-gradient-primary: linear-gradient(135deg, var(--color-primary, #00b4d8) 0%, var(--color-primary-dark, #0096c7) 100%);
-  --wp-gradient-accent: linear-gradient(135deg, var(--color-primary, #00b4d8) 0%, var(--color-secondary, #ff6b35) 100%);
+  --wp-gradient-dark: linear-gradient(
+    135deg,
+    var(--color-dark, #0a1628) 0%,
+    var(--color-dark-lighter, #132038) 50%,
+    var(--color-dark-card, #1a2a44) 100%
+  );
+  --wp-gradient-primary: linear-gradient(
+    135deg,
+    var(--color-primary, #00b4d8) 0%,
+    var(--color-primary-dark, #0096c7) 100%
+  );
+  --wp-gradient-accent: linear-gradient(
+    135deg,
+    var(--color-primary, #00b4d8) 0%,
+    var(--color-secondary, #ff6b35) 100%
+  );
 }
 
 * {

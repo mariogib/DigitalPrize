@@ -51,40 +51,40 @@ export const App: React.FC = () => {
             {/* Public Status Check (standalone page) */}
             <Route path="/status" element={<Status />} />
 
-          {/* Admin Routes - Protected */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <AdminLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="competitions" element={<Competitions />} />
-            <Route path="competitions/:id" element={<CompetitionDetail />} />
-            <Route path="competitions/:id/edit" element={<CompetitionDetail />} />
-            <Route path="competitions/new" element={<div>New Competition</div>} />
-            <Route path="prize-pools" element={<PrizePools />} />
-            <Route path="prize-pools/:id" element={<PrizePoolDetail />} />
-            <Route path="prize-pools/new" element={<PrizePoolCreate />} />
-            <Route path="prizes" element={<div>Prizes List</div>} />
-            <Route path="prizes/new" element={<PrizeCreate />} />
-            <Route path="prizes/:id" element={<PrizeDetail />} />
-            <Route path="awards" element={<Awards />} />
-            <Route path="awards/:id" element={<div>Award Detail</div>} />
-            <Route path="awards/new" element={<div>New Award</div>} />
-            <Route path="registrations" element={<Registrations />} />
-            <Route path="redemptions" element={<Redemptions />} />
-            <Route path="reports" element={<div>Reports</div>} />
-          </Route>
+            {/* Admin Routes - Protected */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="dashboard" replace />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="competitions" element={<Competitions />} />
+              <Route path="competitions/:id" element={<CompetitionDetail />} />
+              <Route path="competitions/:id/edit" element={<CompetitionDetail />} />
+              <Route path="competitions/new" element={<div>New Competition</div>} />
+              <Route path="prize-pools" element={<PrizePools />} />
+              <Route path="prize-pools/:id" element={<PrizePoolDetail />} />
+              <Route path="prize-pools/new" element={<PrizePoolCreate />} />
+              <Route path="prizes" element={<div>Prizes List</div>} />
+              <Route path="prizes/new" element={<PrizeCreate />} />
+              <Route path="prizes/:id" element={<PrizeDetail />} />
+              <Route path="awards" element={<Awards />} />
+              <Route path="awards/:id" element={<div>Award Detail</div>} />
+              <Route path="awards/new" element={<div>New Award</div>} />
+              <Route path="registrations" element={<Registrations />} />
+              <Route path="redemptions" element={<Redemptions />} />
+              <Route path="reports" element={<div>Reports</div>} />
+            </Route>
 
-          {/* 404 */}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-  </ThemeProvider>
+            {/* 404 */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };

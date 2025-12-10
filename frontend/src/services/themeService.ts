@@ -39,7 +39,7 @@ export const fetchTenantTheme = async (): Promise<TenantTheme | null> => {
       : `${AUTH_SERVER_URL}/api/Theme/by-url?url=${encodeURIComponent(currentUrl)}`;
 
     const response = await fetch(themeUrl);
-    
+
     if (!response.ok) {
       console.warn('Failed to fetch tenant theme:', response.status);
       return null;

@@ -1,3 +1,3 @@
 export { ThemeProvider } from './ThemeContext';
-export { useTheme } from './useTheme';
 export type { ThemeContextValue } from './themeContextDef';
+export { useTheme } from './useTheme';

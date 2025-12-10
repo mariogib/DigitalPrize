@@ -15,6 +15,12 @@ const getBaseUrl = (): string => {
   if (typeof window !== 'undefined') {
     // Get the pathname and extract the base if running under a virtual directory
     const pathname = window.location.pathname;
+    // Check for DigitalPrize virtual directory (production)
+    const digitalPrizeMatch = pathname.match(/^(\/DigitalPrize)/i);
+    if (digitalPrizeMatch) {
+      return window.location.origin + digitalPrizeMatch[1];
+    }
+    // Check for testapp virtual directory (development)
     const testappMatch = pathname.match(/^(\/testapp)/i);
     if (testappMatch) {
       return window.location.origin + testappMatch[1];
@@ -25,9 +31,6 @@ const getBaseUrl = (): string => {
 };
 
 const baseUrl = getBaseUrl();
-
-// In development, use local proxy to avoid CORS issues
-const authServerUrl = import.meta.env.DEV ? '' : 'https://worldplayauth.ngrok.app';
 
 export const oidcConfig: UserManagerSettings = {
   authority: 'https://worldplayauth.ngrok.app/',
@@ -59,17 +62,16 @@ export const oidcConfig: UserManagerSettings = {
   // Include ID token claims in the profile
   filterProtocolClaims: false,
 
-  // Override metadata to use proxy in development
-  metadataUrl: `${authServerUrl}/.well-known/openid-configuration`,
-  
-  // Explicit endpoint overrides for development proxy
-  metadata: import.meta.env.DEV ? {
+  // Provide explicit metadata to avoid CORS issues with discovery endpoint
+  // This bypasses the need to fetch /.well-known/openid-configuration
+  metadata: {
     issuer: 'https://worldplayauth.ngrok.app/',
     authorization_endpoint: 'https://worldplayauth.ngrok.app/connect/authorize',
-    token_endpoint: '/connect/token',
-    end_session_endpoint: '/connect/logout',
-    jwks_uri: '/.well-known/jwks',
-  } : undefined,
+    token_endpoint: 'https://worldplayauth.ngrok.app/connect/token',
+    end_session_endpoint: 'https://worldplayauth.ngrok.app/connect/logout',
+    jwks_uri: 'https://worldplayauth.ngrok.app/.well-known/jwks',
+    userinfo_endpoint: 'https://worldplayauth.ngrok.app/connect/userinfo',
+  },
 };
 
 /**

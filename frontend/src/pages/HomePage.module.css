@@ -29,7 +29,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 70% 50%, rgba(var(--color-primary-rgb, 0, 180, 216), 0.15) 0%, transparent 50%);
+  background: radial-gradient(
+    circle at 70% 50%,
+    rgba(var(--color-primary-rgb, 0, 180, 216), 0.15) 0%,
+    transparent 50%
+  );
   pointer-events: none;
 }
 

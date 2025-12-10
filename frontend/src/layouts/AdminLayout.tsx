@@ -50,21 +50,40 @@ export const AdminLayout: React.FC = () => {
           .join(' ')}
       >
         <div className={styles.sidebarHeader}>
-          <Link to="/admin" className={styles.logo}>
-            {logoUrl ? (
-              <img src={logoUrl} alt={tenantName ?? 'Logo'} className={styles.logoImage} />
-            ) : (
-              <span className={styles.logoIcon}>🎯</span>
-            )}
-            {!sidebarCollapsed && <span className={styles.logoText}>{tenantName ?? 'WORLDPLAY'}</span>}
-          </Link>
-          <button
-            className={styles.collapseButton}
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            {sidebarCollapsed ? '→' : '←'}
-          </button>
+          {!sidebarCollapsed && (
+            <Link to="/admin" className={styles.logo}>
+              {logoUrl ? (
+                <img src={logoUrl} alt={tenantName ?? 'Logo'} className={styles.logoImage} />
+              ) : (
+                <span className={styles.logoIcon}>🎯</span>
+              )}
+              <div className={styles.logoTextContainer}>
+                <div className={styles.logoTextRow}>
+                  <span className={styles.logoText}>{tenantName ?? 'WORLDPLAY'}</span>
+                  <button
+                    className={styles.collapseButton}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSidebarCollapsed(!sidebarCollapsed);
+                    }}
+                    aria-label="Collapse sidebar"
+                  >
+                    ◀
+                  </button>
+                </div>
+                <span className={styles.logoSubtext}>Digital Prize</span>
+              </div>
+            </Link>
+          )}
+          {sidebarCollapsed && (
+            <button
+              className={styles.collapseButton}
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              aria-label="Expand sidebar"
+            >
+              ▶
+            </button>
+          )}
         </div>
 
         <nav className={styles.nav}>

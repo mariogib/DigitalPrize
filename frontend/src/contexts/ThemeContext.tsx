@@ -5,8 +5,8 @@
 
 import { useEffect, useState, type ReactNode } from 'react';
 import { initializeTheme, type TenantTheme } from '../services/themeService';
-import { ThemeContext, type ThemeContextValue } from './themeContextDef';
 import styles from './ThemeContext.module.css';
+import { ThemeContext, type ThemeContextValue } from './themeContextDef';
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -49,9 +49,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
           </div>
         </div>
       )}
-      <div className={isLoading ? styles.hidden : styles.visible}>
-        {children}
-      </div>
+      <div className={isLoading ? styles.hidden : styles.visible}>{children}</div>
     </ThemeContext.Provider>
   );
 };

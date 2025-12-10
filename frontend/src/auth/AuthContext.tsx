@@ -90,7 +90,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log('Initiating sign in with config:', {
         redirect_uri: oidcConfig.redirect_uri,
         origin: window.location.origin,
-        href: window.location.href
+        href: window.location.href,
       });
       await userManager.signinRedirect();
     } catch (error) {
@@ -99,10 +99,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [userManager]);
 
-  // Sign out handler
+  // Sign out handler - uses direct URL to avoid CORS issues with OIDC discovery
   const signOut = useCallback(async () => {
     try {
-      await userManager.signoutRedirect();
+      const currentUser = await userManager.getUser();
+      const idToken = currentUser?.id_token;
+
+      // Clear local auth state
+      await userManager.removeUser();
+
+      // Build direct logout URL
+      const authority = 'https://worldplayauth.ngrok.app';
+      const postLogoutUri = encodeURIComponent(window.location.origin + '/DigitalPrize/');
+      let logoutUrl = `${authority}/connect/logout?post_logout_redirect_uri=${postLogoutUri}`;
+
+      if (idToken) {
+        logoutUrl += `&id_token_hint=${idToken}`;
+      }
+
+      // Redirect to logout endpoint
+      window.location.href = logoutUrl;
     } catch (error) {
       console.error('Sign out error:', error);
       throw error;

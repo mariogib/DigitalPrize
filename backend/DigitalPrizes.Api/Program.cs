@@ -134,16 +134,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 
-if (app.Environment.IsDevelopment())
+// Enable Swagger in all environments for API testing
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "DigitalPrizes API v1");
-        options.OAuthClientId(authSettings2["ClientId"]);
-        options.OAuthUsePkce();
-    });
-}
+    // Use relative path so it works under any virtual directory
+    options.SwaggerEndpoint("v1/swagger.json", "DigitalPrizes API v1");
+    options.OAuthClientId(authSettings2["ClientId"]);
+    options.OAuthUsePkce();
+});
 
 app.UseHttpsRedirection();
 app.UseCors();
