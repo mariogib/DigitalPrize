@@ -10,27 +10,23 @@ import { WebStorageStateStore } from 'oidc-client-ts';
  * OAuth2/OIDC Configuration for WorldPlay Auth Server
  */
 
-// Get the base URL - this must match exactly between login initiation and callback
+// Get the base URL - use Vite's BASE_URL which is set from vite.config.ts
 const getBaseUrl = (): string => {
   if (typeof window !== 'undefined') {
-    // Get the pathname and extract the base if running under a virtual directory
-    const pathname = window.location.pathname;
-    // Check for DigitalPrize virtual directory (production)
-    const digitalPrizeMatch = pathname.match(/^(\/DigitalPrize)/i);
-    if (digitalPrizeMatch) {
-      return window.location.origin + digitalPrizeMatch[1];
-    }
-    // Check for testapp virtual directory (development)
-    const testappMatch = pathname.match(/^(\/testapp)/i);
-    if (testappMatch) {
-      return window.location.origin + testappMatch[1];
-    }
-    return window.location.origin;
+    // Use Vite's BASE_URL environment variable (e.g., '/DigitalPrize/')
+    // This is set in vite.config.ts and ensures consistency
+    const viteBase = import.meta.env.BASE_URL || '/';
+    // Remove trailing slash if present for URL building
+    const basePath = viteBase.endsWith('/') ? viteBase.slice(0, -1) : viteBase;
+    const fullUrl = window.location.origin + basePath;
+    console.log('[authConfig] getBaseUrl:', { viteBase, basePath, origin: window.location.origin, fullUrl });
+    return fullUrl;
   }
   return 'http://localhost:3000';
 };
 
 const baseUrl = getBaseUrl();
+console.log('[authConfig] Configured redirect_uri:', `${baseUrl}/auth/callback`);
 
 export const oidcConfig: UserManagerSettings = {
   authority: 'https://worldplayauth.ngrok.app/',
