@@ -95,7 +95,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
       // Use prompt: 'login' to force the auth server to show the login page
       // This prevents silent re-authentication after logout
-      await userManager.signinRedirect({ prompt: 'login' });
+      //await userManager.signinRedirect({ prompt: 'login' });
+      await userManager.signinRedirect({});
     } catch (error) {
       console.error('Sign in error:', error);
       throw error;
@@ -105,10 +106,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Sign out handler - clears local state and redirects to auth server logout
   const signOut = useCallback(async () => {
     console.log('signOut called - starting logout process');
-    
+
     // Set signing out flag to prevent ProtectedRoute from triggering sign-in
     setIsSigningOut(true);
-    
+
     try {
       // Get the id_token before clearing state (needed for logout hint)
       const currentUser = await userManager.getUser();
@@ -138,23 +139,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       }
       console.log('localStorage keys to remove:', keysToRemove);
-      keysToRemove.forEach(key => localStorage.removeItem(key));
+      keysToRemove.forEach((key) => localStorage.removeItem(key));
 
       // Clear session storage as well - including auth_redirect_url
       const sessionKeysToRemove: string[] = [];
       for (let i = 0; i < sessionStorage.length; i++) {
         const key = sessionStorage.key(i);
-        if (key && (key.startsWith('oidc.') || key.includes('DigitalPrize') || key === 'auth_redirect_url')) {
+        if (
+          key &&
+          (key.startsWith('oidc.') || key.includes('DigitalPrize') || key === 'auth_redirect_url')
+        ) {
           sessionKeysToRemove.push(key);
         }
       }
       console.log('sessionStorage keys to remove:', sessionKeysToRemove);
-      sessionKeysToRemove.forEach(key => sessionStorage.removeItem(key));
+      sessionKeysToRemove.forEach((key) => sessionStorage.removeItem(key));
 
       // Build the auth server logout URL with id_token_hint first, then post_logout_redirect_uri
       const postLogoutUri = encodeURIComponent(window.location.origin + '/DigitalPrize');
       let logoutUrl = `${authority}/connect/logout?`;
-      
+
       if (idToken) {
         logoutUrl += `id_token_hint=${idToken}&`;
       }
